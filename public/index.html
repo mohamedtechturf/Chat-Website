@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Local Chat</title>
+  <link rel="icon" type="image/x-icon" href="/images/chat.ico">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="root">
+    <div id="overlay" class="overlay hidden">
+      <div class="modal">
+        <h2 class="title">Enter a username</h2>
+        <div class="join-row">
+          <input id="usernameInput" type="text" maxlength="20" placeholder="Type a username (max 20)" autocomplete="off" />
+          <button id="joinBtn" class="btn primary">Join</button>
+        </div>
+        <p id="joinError" class="error small"></p>
+      </div>
+    </div>
+
+    <!-- Settings overlay -->
+    <div id="settingsOverlay" class="overlay hidden">
+      <div class="modal">
+        <h2 class="title">Chat Settings</h2>
+        <form id="settingsForm">
+          <div class="field">
+            <div class="label small muted">Theme</div>
+            <div class="theme-list">
+              <label class="theme-option">
+                <input type="radio" name="theme" value="default" />
+                <span class="theme-swatch default-swatch"></span>
+                <span class="theme-name">Default</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="pink" />
+                <span class="theme-swatch pink-swatch"></span>
+                <span class="theme-name">Blossom</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="bloody" />
+                <span class="theme-swatch bloody-swatch"></span>
+                <span class="theme-name">Bloody Red</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="cyber" />
+                <span class="theme-swatch cyber-swatch"></span>
+                <span class="theme-name">Cyber Yellow</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="forest" />
+                <span class="theme-swatch forest-swatch"></span>
+                <span class="theme-name">Forest Green</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="ultra" />
+                <span class="theme-swatch ultra-swatch"></span>
+                <span class="theme-name">Ultra Violet</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="titanium" />
+                <span class="theme-swatch titanium-swatch"></span>
+                <span class="theme-name">Titanium White</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="marron-chestnut" />
+                <span class="theme-swatch marron-chestnut-swatch"></span>
+                <span class="theme-name">Marron Chestnut</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="watch-dogs" />
+                <span class="theme-swatch watch-dogs-swatch"></span>
+                <span class="theme-name">Watch Dogs</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="midnight-blue" />
+                <span class="theme-swatch midnight-blue-swatch"></span>
+                <span class="theme-name">Midnight Blue</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="cotton-candy" />
+                <span class="theme-swatch cotton-candy-swatch"></span>
+                <span class="theme-name">Cotton Candy</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="sandstorm" />
+                <span class="theme-swatch sandstorm-swatch"></span>
+                <span class="theme-name">Sandstorm</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="vintage" />
+                <span class="theme-swatch vintage-swatch"></span>
+                <span class="theme-name">Vintage</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="retro" />
+                <span class="theme-swatch retro-swatch"></span>
+                <span class="theme-name">Retro</span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="iceberg" />
+                <span class="theme-swatch iceberg-swatch"></span>
+                <span class="theme-name">Iceberg</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:12px; justify-content:space-between">
+            <button type="button" id="settingsClose" class="btn">Close</button>
+            <button type="submit" class="btn primary">Apply</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <header class="topbar" role="banner">
+      <div class="brand-wrapper">
+        <button id="sidebarToggle" class="btn icon" type="button" title="Toggle users" aria-label="Toggle users">☰</button>
+        <div class="brand">Local Chat</div>
+      </div>
+      <div class="topbar-right">
+        <div id="currentUser" class="small muted">Not connected</div>
+        <div class="controls" aria-hidden="false">
+          <!-- settings button appended by script if missing; kept here for progressive enhancement -->
+          <button id="settingsBtn" class="btn icon" type="button" title="Settings">⚙</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <aside class="sidebar">
+        <h3 class="side-title">Users</h3>
+        <ul id="usersList" class="users"></ul>
+      </aside>
+
+      <section class="chat-area">
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <div id="typing" class="typing small muted" aria-live="polite" aria-atomic="true"></div>
+
+        <form id="compose" class="compose" autocomplete="off">
+          <div class="compose-row">
+            <label class="fileLabel icon-btn attach-btn" title="Send image, audio or video">
+              <input id="fileInput" type="file" accept="image/*,audio/*,video/*" />
+            </label>
+
+            <textarea id="msg" placeholder="Write a message..." rows="1" aria-label="Message"></textarea>
+
+            <button id="emojiBtn" class="btn icon emoji-btn" type="button" title="Emoji & Stickers" aria-label="Emoji and stickers"></button>
+
+            <button id="sendBtn" class="btn icon send-btn" type="button" title="Send" aria-label="Send"></button>
+          </div>
+
+          <!-- Emoji/Sticker Picker Bubble -->
+          <div id="emojiPicker" class="emoji-picker hidden">
+            <div class="emoji-picker-header">
+              <div class="emoji-picker-tabs">
+                <button type="button" class="emoji-tab-btn active" data-tab="emojis" title="Text Emojis">😀</button>
+                <button type="button" class="emoji-tab-btn" data-tab="stickers" title="Stickers">🎨</button>
+              </div>
+              <input type="text" id="emojiSearch" class="emoji-search" placeholder="Search emojis..." autocomplete="off" />
+              <button type="button" class="emoji-picker-close" aria-label="Close picker">✕</button>
+            </div>
+            <div class="emoji-picker-content">
+              <div id="emojisTab" class="emoji-tab active">
+                <div id="emojiCategories" class="emoji-categories"></div>
+              </div>
+              <div id="stickersTab" class="emoji-tab">
+                <div id="stickersList" class="stickers-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="preview-wrapper">
+            <button id="clearFileBtn" class="btn icon clear-file-btn" type="button" title="Remove attachment" aria-label="Remove attachment" style="display:none;">✕</button>
+            <div id="preview" class="preview"></div>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- footer removed to allow chat to expand to bottom -->
+  </div>
+
+  <!-- explicit sidebar backdrop for mobile -->
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+{
+  "themes": [
+    {
+      "id": "default",
+      "name": "Default",
+      "emoji": "default.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#0a121d 0%, #050f18 100%)",
+        "card": "#0f1a28",
+        "accent": "#58d5c8",
+        "accent-2": "#5ba3f5",
+        "fg": "#e8f0f8",
+        "fg-muted": "#a8b8cc"
+      }
+    },
+    {
+      "id": "pink",
+      "name": "Blossom",
+      "emoji": "blossom.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#2a1a2a 0%, #1a0a1a 100%)",
+        "card": "#3a2a3a",
+        "accent": "#ff69b4",
+        "accent-2": "#ff1493",
+        "fg": "#fff0f8",
+        "fg-muted": "#d0a0c0"
+      }
+    },
+    {
+      "id": "bloody",
+      "name": "Bloody Red",
+      "emoji": "bloody_red.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#2a1515 0%, #1a0a05 100%)",
+        "card": "#3a2020",
+        "accent": "#ff4444",
+        "accent-2": "#cc0000",
+        "fg": "#fff0f0",
+        "fg-muted": "#d0a0a0"
+      }
+    },
+    {
+      "id": "cyber",
+      "name": "Cyber Yellow",
+      "emoji": "cyber_yellow.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#2a2415 0%, #1a1405 100%)",
+        "card": "#3a3420",
+        "accent": "#ffff00",
+        "accent-2": "#ffcc00",
+        "fg": "#000000",
+        "fg-muted": "#404000"
+      }
+    },
+    {
+      "id": "forest",
+      "name": "Forest Green",
+      "emoji": "green_forest.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#152a15 0%, #050a05 100%)",
+        "card": "#203a20",
+        "accent": "#00ff00",
+        "accent-2": "#00cc00",
+        "fg": "#e0ffe0",
+        "fg-muted": "#a0d0a0"
+      }
+    },
+    {
+      "id": "ultra",
+      "name": "Ultra Violet",
+      "emoji": "ultra_violet.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#2a152a 0%, #1a050a 100%)",
+        "card": "#3a2a4a",
+        "accent": "#dd00ff",
+        "accent-2": "#aa00ff",
+        "fg": "#f5e0ff",
+        "fg-muted": "#d0a0e0"
+      }
+    },
+    {
+      "id": "titanium",
+      "name": "Titanium White",
+      "emoji": "titanium_white.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#f5f5f5 0%, #e8e8e8 100%)",
+        "card": "#ffffff",
+        "accent": "#333333",
+        "accent-2": "#666666",
+        "fg": "#000000",
+        "fg-muted": "#666666"
+      }
+    },
+    {
+      "id": "marron-chestnut",
+      "name": "Marron Chestnut",
+      "emoji": "marron_chestlnut.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#3a2a1a 0%, #2a1a0a 100%)",
+        "card": "#4a3a2a",
+        "accent": "#a0522d",
+        "accent-2": "#8b4513",
+        "fg": "#fff5f0",
+        "fg-muted": "#d0a090"
+      }
+    },
+    {
+      "id": "watch-dogs",
+      "name": "Watch Dogs",
+      "emoji": "watch_dogs.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#0a1f40 0%, #051428 100%)",
+        "card": "#0f2a50",
+        "accent": "#00ff41",
+        "accent-2": "#00dd00",
+        "fg": "#e0f0f0",
+        "fg-muted": "#80c0c0"
+      }
+    },
+    {
+      "id": "midnight-blue",
+      "name": "Midnight Blue",
+      "emoji": "midnight_blue.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#0f2a50 0%, #0a1a35 100%)",
+        "card": "#142d4a",
+        "accent": "#5ba3f5",
+        "accent-2": "#2e7fd4",
+        "fg": "#e8f0f9",
+        "fg-muted": "#c8d8e8"
+      }
+    },
+    {
+      "id": "cotton-candy",
+      "name": "Cotton Candy",
+      "emoji": "cotton_candy.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#ffc0e0 0%, #87ceeb 100%)",
+        "card": "#ffffff",
+        "accent": "#ff2d8f",
+        "accent-2": "#ff69b4",
+        "fg": "#2a1a25",
+        "fg-muted": "#5a3a50"
+      }
+    },
+    {
+      "id": "sandstorm",
+      "name": "Sandstorm",
+      "emoji": "sandstorm.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#ffe8b8 0%, #e8c68a 100%)",
+        "card": "#fff8e6",
+        "accent": "#ff9800",
+        "accent-2": "#d4751e",
+        "fg": "#2a1a0a",
+        "fg-muted": "#5a4020"
+      }
+    },
+    {
+      "id": "vintage",
+      "name": "Vintage",
+      "emoji": "vintage.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#f5e6d3 0%, #e8d4b8 100%)",
+        "card": "#fef9f3",
+        "accent": "#c97b0f",
+        "accent-2": "#8b4513",
+        "fg": "#3a2510",
+        "fg-muted": "#6a5030"
+      }
+    },
+    {
+      "id": "retro",
+      "name": "Retro",
+      "emoji": "retro.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#f5e6d3 0%, #e8d4b8 100%)",
+        "card": "#fffbf5",
+        "accent": "#ff5733",
+        "accent-2": "#d42426",
+        "fg": "#2a1a15",
+        "fg-muted": "#5a3a30"
+      }
+    },
+    {
+      "id": "iceberg",
+      "name": "Iceberg",
+      "emoji": "iceberg.webp",
+      "colors": {
+        "bg": "linear-gradient(180deg,#e8f8ff 0%, #d0f0ff 100%)",
+        "card": "#ffffff",
+        "accent": "#0ea5e9",
+        "accent-2": "#0284c7",
+        "fg": "#0f2a38",
+        "fg-muted": "#4a6a80"
+      }
+    }
+  ]
+}
