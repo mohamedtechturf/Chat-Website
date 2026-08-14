@@ -34,7 +34,7 @@ Follow these quick steps to get your private local chat server up and running:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com
+git clone [https://github.com](https://github.com/mohamedtechturf/Chat-Website)
 cd Chat-Website
 ```
 
