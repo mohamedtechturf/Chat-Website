@@ -3,6 +3,7 @@
   const wsUrl = wsProto + '//' + location.host;
   let socket;
   let myName = null;
+  let hasJoined = false;
 
   // detect touch devices
   const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
@@ -579,14 +580,21 @@
 
       if (msg.type === 'joined') {
         if (msg.success) {
+          hasJoined = true;
           hideOverlay(overlay);
           joinError.textContent = '';
           currentUser.textContent = msg.username;
           myName = msg.username;
+          loadEmojiData();
+          loadStickers();
         } else {
+          hasJoined = false;
           joinError.textContent = msg.reason || 'Join failed';
         }
+        return;
       }
+
+      if (!hasJoined) return;
 
       if (msg.type === 'userlist') renderUserList(msg.users || []);
       if (msg.type === 'typingUpdate') renderTyping(msg.users || []);
@@ -600,8 +608,12 @@
     });
 
     socket.addEventListener('close', () => {
+      if (!hasJoined) {
+        messagesEl.innerHTML = '';
+        usersList.innerHTML = '';
+        typingEl.textContent = '';
+      }
       currentUser.textContent = 'Disconnected';
-      appendSystem('Disconnected from server. Reconnecting…', Date.now());
       setTimeout(() => connectWs(), 1200);
     });
 
@@ -609,6 +621,7 @@
   }
 
   function sendJSON(obj) {
+    if (obj.type !== 'join' && !hasJoined) return;
     if (socket && socket.readyState === WebSocket.OPEN) {
       // Use setTimeout to defer JSON.stringify to prevent blocking on large payloads
       // This allows the UI to remain responsive while stringify happens
@@ -2057,16 +2070,11 @@
     textarea.focus();
   }
 
-  // Load emoji data and stickers
-  loadEmojiData();
-  loadStickers();
   updateEmojiButtonIcon();
-  // Set initial emoji on button
   if (emojiBtn) {
     emojiBtn.textContent = emojiBatchArray[0];
   }
 
-  // initial connect
   connectWs();
 
   // show overlay on first open

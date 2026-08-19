@@ -96,6 +96,10 @@ function makeId(){
   return `${Date.now()}-${msgCounter++}`;
 }
 
+function isJoined(ws) {
+  return users.has(ws);
+}
+
 function broadcast(obj, except) {
   const raw = JSON.stringify(obj);
   wss.clients.forEach(c => {
@@ -110,20 +114,37 @@ wss.on('connection', (ws) => {
   ws.on('message', raw => {
     let msg;
     try { msg = JSON.parse(raw); } catch { return; }
+
     if (msg.type === 'join') {
+      if (isJoined(ws)) return;
+
       const name = String(msg.username || '').trim().slice(0, 20);
-      if (!name) { ws.send(JSON.stringify({ type: 'joined', success: false, reason: 'Empty username' })); return; }
-      if (nameSet.has(name)) { ws.send(JSON.stringify({ type: 'joined', success: false, reason: 'Username already taken' })); return; }
-      users.set(ws, name); nameSet.add(name);
-      // ensure typing set is clean for this user
+      if (!name) {
+        ws.send(JSON.stringify({ type: 'joined', success: false, reason: 'Empty username' }));
+        return;
+      }
+
+      if (nameSet.has(name)) {
+        ws.send(JSON.stringify({ type: 'joined', success: false, reason: 'Username already taken' }));
+        return;
+      }
+
+      users.set(ws, name);
+      nameSet.add(name);
       typingSet.delete(name);
+
       ws.send(JSON.stringify({ type: 'joined', success: true, username: name }));
-      broadcast({ type: 'userlist', users: Array.from(nameSet) });
+      ws.send(JSON.stringify({ type: 'userlist', users: Array.from(nameSet) }));
+      ws.send(JSON.stringify({ type: 'typingUpdate', users: Array.from(typingSet) }));
+
+      broadcast({ type: 'userlist', users: Array.from(nameSet) }, ws);
       broadcast({ type: 'system', text: `${name} joined the chat`, ts: Date.now() }, ws);
-      // notify others of typing state (mostly no-op but keeps clients in sync)
-      broadcast({ type: 'typingUpdate', users: Array.from(typingSet) }, ws);
+
       return;
     }
+
+    if (!isJoined(ws)) return;
+
     if (msg.type === 'typing') {
       const name = users.get(ws) || null;
       if (!name) return;
@@ -139,7 +160,7 @@ wss.on('connection', (ws) => {
       return;
     }
     if (msg.type === 'message') {
-      const from = users.get(ws) || 'Unknown';
+      const from = users.get(ws);
       const id = makeId();
       const text = String(msg.text || '');
       const replyTo = msg.replyTo || null;
@@ -150,7 +171,7 @@ wss.on('connection', (ws) => {
     }
 
     if (msg.type === 'file') {
-      const from = users.get(ws) || 'Unknown';
+      const from = users.get(ws);
       const data = String(msg.data || '').slice(0, 50 * 1024 * 1024);
       const thumbnail = String(msg.thumbnail || '').slice(0, 2 * 1024 * 1024); // Limit thumbnail to 2MB
       const id = makeId();
@@ -161,7 +182,7 @@ wss.on('connection', (ws) => {
     }
 
     if (msg.type === 'sticker') {
-      const from = users.get(ws) || 'Unknown';
+      const from = users.get(ws);
       const id = makeId();
       const stickerUrl = String(msg.stickerUrl || '');
       const replyTo = msg.replyTo || null;
